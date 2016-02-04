@@ -1,0 +1,9 @@
+{
+  "name": "jashley.me",
+  "description": "my homepage",
+  "image": "heroku/python",
+  "addons": [
+    "heroku-postgresql",
+    "herokue-redis"
+  ]
+}
