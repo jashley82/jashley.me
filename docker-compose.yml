@@ -1,5 +1,5 @@
 web:
-  build: jashley_me
+  build: .
   command: gunicorn jashley_me.wsgi:application -w 2 -b :8000
   working_dir: /app/user
   environment:
@@ -10,7 +10,7 @@ web:
   links:
     - herokuPostgresql
 shell:
-  build: jashley_me
+  build: .
   command: bash
   working_dir: /app/user
   environment:
