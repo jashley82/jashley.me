@@ -4,6 +4,6 @@
   "image": "heroku/python",
   "addons": [
     "heroku-postgresql",
-    "herokue-redis"
+    "heroku-redis"
   ]
 }
