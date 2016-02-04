@@ -1,7 +1,7 @@
 web:
-  build: .
+  build: jashley_me
   command: gunicorn jashley_me.wsgi:application -w 2 -b :8000
-  working_dir: /app/user
+  working_dir: /app/user/jashley_me
   environment:
     PORT: 8000
     DATABASE_URL: 'postgres://postgres:@herokuPostgresql:5432/postgres'
@@ -10,9 +10,9 @@ web:
   links:
     - herokuPostgresql
 shell:
-  build: .
+  build: jashley_me
   command: bash
-  working_dir: /app/user
+  working_dir: /app/user/jashley_me
   environment:
     PORT: 8000
     DATABASE_URL: 'postgres://postgres:@herokuPostgresql:5432/postgres'
