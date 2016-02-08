@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block main %}
+  <style>
+    ul.errorlist {display:none;}
+  </style>
+  
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %} 
+      <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  
+  {% if answer %}
+    <p>Category: {{ answer.category.title }}</p>
+    <p>Answer: {{ answer.answer_text }}</p>
+    <form action="/quiz/check/" method="post">
+      {% csrf_token %}
+      {{ form }}
+      <input type="submit" value="Submit" />
+    </form>
+  {% else %}
+    <p>No content available.</p>
+  {% endif %}
+{% endblock %}

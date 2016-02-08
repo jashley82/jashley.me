@@ -27,6 +27,7 @@ if settings.USE_MODELTRANSLATION:
     ]
 
 urlpatterns += [
+
     # We don't want to presume how your homepage works, so here are a
     # few patterns you can use to set it up.
 
@@ -72,6 +73,9 @@ urlpatterns += [
     # ``mezzanine.urls`` INCLUDES A *CATCH ALL* PATTERN
     # FOR PAGES, SO URLPATTERNS ADDED BELOW ``mezzanine.urls``
     # WILL NEVER BE MATCHED!
+
+    url(r"^quiz/", include("quiz.urls"), name="quiz"),
+
 
     # If you'd like more granular control over the patterns in
     # ``mezzanine.urls``, go right ahead and take the parts you want
