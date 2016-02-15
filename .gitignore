@@ -6,3 +6,5 @@
 local_settings.py
 static
 src
+*.log
+__pycache__
