@@ -30,10 +30,10 @@ def build_docker():
     for cmd in BUILDCOMMANDS:
         subprocess.call(cmd, stdout=NULL)
 
-def run_tests():
-    print >> sys.stderr, "Running unit tests at %s" % get_now()
-    os.chdir(BASEDIR)
-    subprocess.call(r'python -m unittest discover -b')
+# def run_tests():
+    # print >> sys.stderr, "Running unit tests at %s" % get_now()
+    # os.chdir(BASEDIR)
+    # subprocess.call(r'python -m unittest discover -b')
 
 
 class ChangeHandler(PatternMatchingEventHandler):
@@ -49,6 +49,7 @@ class ChangeHandler(PatternMatchingEventHandler):
         
 
 def main():
+    build_docker()
     while 1:
         event_handler = ChangeHandler()
         observer = Observer()
