@@ -10,6 +10,7 @@ from watchdog.events import FileSystemEventHandler, PatternMatchingEventHandler
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 PATTERNS = [
         '*.py',
+        '*.html',
         ]
 IGNORE_PATTERNS = [
         '*src*',
