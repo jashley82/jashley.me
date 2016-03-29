@@ -5,6 +5,7 @@
 .DS_Store
 .coverage
 local_settings.py
-static
-src
+*static*
+*src*
+*.log
 __pycache__
