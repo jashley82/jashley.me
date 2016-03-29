@@ -1,0 +1,588 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<base href="http://brunorocha.org/">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101212">
+
+
+<meta name="description" content="Watching a directory and perform some action on file changes. In this example I will parse and insert data in to db when some XML file is changed or created.">
+<meta name="keywords" content="python,pyplanet,pythonplanet,xml,">
+
+
+
+
+<meta property="fb:app_id" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Watching a directory for file changes with Python" />
+<meta property="og:site_name" content="BrunoRocha.org | Python web development" />
+<meta property="og:url" content="http://brunorocha.org/python/watching-a-directory-for-file-changes-with-python.html" />
+<meta property="og:description" content="Watching a directory and perform some action on file changes. In this example I will parse and insert data in to db when some XML file is changed or created." />
+<meta property="og:image" content="http://brunorocha.org//mediafiles/image/2013/11/new_logo_bruno_rocha_45207.png" />
+
+
+<link rel="canonical" href="/python/watching-a-directory-for-file-changes-with-python.html"/>
+<meta name="author" content="Joshua Ashley">
+
+<link rel="icon" type="image/x-icon" href="/_themes/pure/favicon.ico" />
+<link rel="shortcut icon" href="/_themes/pure/favicon.ico">
+
+<title> Watching a directory for file changes with Python | python | BrunoRocha.org | Python web development </title>
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/_themes/pure/css/pure.css">
+<link rel="stylesheet" href="/_themes/pure/css/custom.css">
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+  var pageTracker = _gat._getTracker("UA-33970092-1");
+  pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+
+
+<meta name="google-site-verification" content="y40Ko5oYfUfNvfvOok2Hfit7gkVBXYhiVr8-6Km94YA" />
+
+
+</head>
+
+<body>
+
+<div class="pure-g-r" id="layout">
+
+  <div class="topbar" style="background-image: url('/_themes/pure/img/bg.jpg')">
+    <a href="/" class="back-home"><img class="internal-logo" src="/_themes/pure/img/logo_black.png" alt="BrunoRocha.org | Python web development"></a>
+
+    <small>Published in 16:17 of 12/07/2013 by
+
+
+      <a target="_blank" href="/author/admin_example_com/">
+        Joshua Ashley
+      </a>
+
+
+
+    </small>
+
+
+  </div>
+
+
+
+
+  <div class="sidebar sidebar-article pure-u">
+    <header class="header-article">
+      <hgroup>
+      <a href="/" class="back-home"><img class="internal-logo" src="/static/img/new_logo_bruno_rocha_black.png" alt="BrunoRocha.org | Python web development"></a>
+
+
+
+
+      <div >
+
+
+        <a href="/author/admin_example_com/" title="See posts by Joshua Ashley">
+          <img class="article-avatar" alt="Joshua Ashley" height="120" width="120" src="http://www.gravatar.com/avatar/9200c133c210ad51e8005277e932061a?s=120&amp;d=retro&amp;r=g">
+        </a>
+
+
+        <h2 class="article-info">Joshua Ashley</h2>
+        <ul class="author-social">
+
+          <li>
+          <a target="_blank" href="http://facebook.com/rochacbruno">
+            <i class="fa fa-lg fa-fw fa-facebook"></i>
+            <strong>facebook</strong>
+          </a>
+          </li>
+
+          <li>
+          <a target="_blank" href="http://github.com/rochacbruno">
+            <i class="fa fa-lg fa-fw fa-github"></i>
+            <strong>github</strong>
+          </a>
+          </li>
+
+          <li>
+          <a target="_blank" href="http://twitter.com/rochacbruno">
+            <i class="fa fa-lg fa-fw fa-twitter"></i>
+            <strong>twitter</strong>
+          </a>
+          </li>
+
+          <li>
+          <a target="_blank" href="http://linkedin.com/in/rochacbruno">
+            <i class="fa fa-lg fa-fw fa-linkedin"></i>
+            <strong>linkedin</strong>
+          </a>
+          </li>
+
+        </ul>
+
+        <small class="about-author">There is more to life than increasing its speed!</small>
+      </div>
+
+
+
+      <p>Published in 16:17 of 12/07/2013</p>
+      <a href="/" class="back-home">&larr;Home</a>
+      </hgroup>
+    </header>
+  </div>
+
+
+  <div class="pure-u ">
+    <div class="content">
+      <section class="post">
+        <header class="post-header">
+
+          <h1>Watching a directory for file changes with Python</h1>
+
+
+          <p class="post-meta">
+
+
+          <small class="breadcrumb">
+
+
+            > <span><a href="/python/">python</a></span>
+
+
+          </small>
+
+
+          </p>
+
+          <p class="post-meta">
+          // Tags 
+          <a class="post-category" href="/tag/python/">python</a>
+
+          <a class="post-category" href="/tag/pyplanet/">pyplanet</a>
+
+          <a class="post-category" href="/tag/pythonplanet/">pythonplanet</a>
+
+          <a class="post-category" href="/tag/xml/">xml</a>
+
+          <a class="post-category" href="/tag//"></a>
+
+          </p>
+        </header>
+
+
+
+
+
+      </section>
+
+      <h2>requirement</h2>
+      <p>Watch changes in a <strong>ftp</strong> folder, whenever a new xml file is <strong>created</strong>, or when an existing file is <strong>modified</strong> this needs to be parsed and its contents inserted in the database.</p>
+      <h2>tools</h2>
+      <ul>
+        <li>Python 2..7</li>
+        <li>watchdog   </li>
+      </ul>
+      <p>Install from pip</p>
+      <pre><code>pip install watchdog
+      </code></pre>
+      <p>Watchdog is a Python API library and shell utilities to monitor file system events.</p>
+      <h2>How to</h2>
+      <p>First create the monitoring script, it will run daemonized and will <strong>observe</strong> any changes to the given directory. In that script 3 modules/classes will be used</p>
+      <ul>
+        <li><strong>time</strong> from Python will be used to <strong>sleep</strong> the main loop  </li>
+        <li><strong>watchdog.observers.Observer</strong> is the class that will <strong>watch</strong> for any change, and then dispatch the event to specified the handler.</li>
+        <li><strong>watchdog.events.PatterMatchingHandler</strong> is the class that will take the event dispatched by the observer and perform some action</li>
+      </ul>
+      <p>watch_for_changes.py</p>
+      <pre><code>import time  
+from watchdog.observers import Observer  
+from watchdog.events import PatternMatchingEventHandler  
+      </code></pre>
+      <p><strong>PatternMatchingEventHandler</strong> inherits from <strong>FileSystemEventHandler</strong> and exposes some usefull methods:</p>
+      <p>Events are: <strong>modified, created, deleted, moved</strong></p>
+      <ul>
+        <li><strong>on_any_event</strong>: if defined, will be executed for any event</li>
+        <li><strong>on_created</strong>:  Executed when a file or a directory is created</li>
+        <li><strong>on_modified</strong>: Executed when a file is modified or a directory renamed</li>
+        <li><strong>on_moved</strong>: Executed when a file or directory is moved</li>
+        <li><strong>on_deleted</strong>: Executed when a file or directory is deleted.</li>
+      </ul>
+      <p>Each one of those methods receives the <strong>event</strong> object as first parameter, and the <strong>event</strong> object has 3 attributes.</p>
+      <ul>
+        <li><strong>event_type</strong><br>
+        'modified' | 'created' | 'moved' | 'deleted'</li>
+        <li><strong>is_directory</strong><br>
+        True | False</li>
+        <li><strong>src_path</strong><br>
+        path/to/observed/file</li>
+      </ul>
+      <p>So to create a handler just inherit from one of the existing handlers, for this example <strong>PatternMatchingEventHandler</strong> will be used to match
+      only xml files.</p>
+      <p>To simplify I will enclose the file processor in just one method, and I will implement method only for on_modified and on_created, which means that my handler will ignore any other events.</p>
+      <p>Also defining the <strong>patterns</strong> attribute to watch only for files with xml or lxml extensions.</p>
+      <pre><code> class MyHandler(PatternMatchingEventHandler):
+    patterns = ["*.xml", "*.lxml"]
+
+    def process(self, event):
+        """
+        event.event_type 
+            'modified' | 'created' | 'moved' | 'deleted'
+        event.is_directory
+            True | False
+        event.src_path
+            path/to/observed/file
+        """
+        # the file will be processed there
+        print event.src_path, event.event_type  # print now only for degug
+
+    def on_modified(self, event):
+        self.process(event)
+
+    def on_created(self, event):
+        self.process(event)
+      </code></pre>
+      <p>With the above handler only creation and modification will be <strong>watched</strong> now the Obserser needs to be scheduled.</p>
+      <pre><code>if __name__ == '__main__':
+    args = sys.argv[1:]
+    observer = Observer()
+    observer.schedule(MyHandler(), path=args[0] if args else '.')
+    observer.start()
+
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        observer.stop()
+
+    observer.join()
+      </code></pre>
+      <blockquote><p>You can set the named-argument "recursive" to True for observer.schedule. if you want to watch for files in subfolders.</p>
+      </blockquote>
+      <p>That's all needed to watch for modifications on the given directory, it will take the current directory as default or the path given as first parameter.</p>
+      <pre><code>python watch_for_changes.py /path/to/directory
+      </code></pre>
+      <p>let it run in a shell and open another one or the file browser to change or create new .xml files in the <strong>/path/to/directory</strong>.</p>
+      <pre><code>echo "testing" &gt; /tmp/test.xml 
+      </code></pre>
+      <p>Since the handler is printing the results, the outrput should be:</p>
+      <pre><code>rochacbruno@~/$ python watch_for_changes.py /tmp
+/tmp/test.xml created
+/tmp/test.xml modified
+      </code></pre>
+      <p>Now to complete the script only need to implement in the <strong>process</strong> method, the necessary logic to parse and insert to database.</p>
+      <p>For example, if the xml file contains some data about current track on a web radio:</p>
+      <pre><code>&lt;?xml version="1.0" encoding="ISO-8859-1" standalone="yes" ?&gt; 
+ &lt;Pulsar&gt;
+  &lt;OnAir&gt;
+     &lt;media_type&gt;default&lt;/media_type&gt; 
+     &lt;media&gt;
+        &lt;title1&gt;JOVEM PAN FM&lt;/title1&gt; 
+        &lt;title2&gt;100,9MHz&lt;/title2&gt; 
+        &lt;title3&gt;A maior rede de radio do Brasil&lt;/title3&gt; 
+        &lt;title4&gt;00:00:00&lt;/title4&gt; 
+        &lt;media_id1&gt;#ID_Title#&lt;/media_id1&gt; 
+        &lt;media_id2&gt;#ID_SubTitle#&lt;/media_id2&gt; 
+        &lt;media_id3&gt;#ID_Album#&lt;/media_id3&gt; 
+        &lt;hour&gt;2013-12-07 11:44:32&lt;/hour&gt; 
+        &lt;length&gt;#Duration#&lt;/length&gt; 
+        &lt;ISRC&gt;#Code#&lt;/ISRC&gt; 
+    &lt;id_singer&gt;#ID_Singer#&lt;/id_singer&gt;
+    &lt;id_song&gt;#ID_Song#&lt;/id_song&gt;
+    &lt;id_album&gt;#ID_Album#&lt;/id_album&gt;
+    &lt;id_jpg&gt;#Jpg#&lt;/id_jpg&gt;
+     &lt;/media&gt;
+  &lt;/OnAir&gt;
+&lt;/Pulsar&gt;
+      </code></pre>
+      <p>The easiest way to parse this small xml is using xmltodict library.</p>
+      <pre><code>pip install xmltodict
+      </code></pre>
+      <p>With <strong>xmltodict.parse</strong> function the above xml will be outputed as an OrderedDict</p>
+      <pre><code>OrderedDict([(u'Pulsar',
+    OrderedDict([(u'OnAir',
+        OrderedDict([(u'media_type', u'default'),
+        (u'media', 
+            OrderedDict([(u'title1', u'JOVEM PAN FM'),
+                         (u'title2', u'100,9MHz'),
+                         (u'title3', u'A maior rede de radio do Brasil'),
+                         (u'title4', u'00:00:00'),
+                         (u'media_id1', u'#ID_Title#'),
+                         (u'media_id2', u'#ID_SubTitle#'),
+                         (u'media_id3', u'#ID_Album#'),
+                         (u'hour', u'2013-12-07 11:44:32'),
+                         (u'length', u'#Duration#'),
+                         (u'ISRC', u'#Code#'),
+                         (u'id_singer', u'#ID_Singer#'),
+                         (u'id_song', u'#ID_Song#'),
+                         (u'id_album', u'#ID_Album#'),
+                         (u'id_jpg', u'#Jpg#')]))]))]))])
+      </code></pre>
+      <p>Now we can just access that dict to create the registry on filesystem or something else. Notice that I will use a lot of <strong>get</strong> method of <strong>dict</strong> type to avoid KeyErrors.</p>
+      <pre><code>with open(event.src_path, 'r') as xml_source:
+    xml_string = xml_source.read()
+    parsed = xmltodict.parse(xml_string)
+    element = parsed.get('Pulsar', {}).get('OnAir', {}).get('media')
+    if not element:
+        return
+    print dict(element)
+      </code></pre>
+      <p>ant the output will be:</p>
+      <pre><code>{u'hour': u'2013-12-07 11:44:32',
+ u'title2': u'100,9MHz',
+ u'id_album': u'#ID_Album#',
+ u'title1': u'JOVEM PAN FM',
+ u'length': u'#Duration#',
+ u'title3': u'A maior rede de radio do Brasil',
+ u'title4': u'00:00:00',
+ u'ISRC': u'#Code#',
+ u'id_song': u'#ID_Song#',
+ u'media_id2': u'#ID_SubTitle#',
+ u'media_id1': u'#ID_Title#',
+ u'id_jpg': u'#Jpg#',
+ u'media_id3': u'#ID_Album#',
+ u'id_singer': u'#ID_Singer#'}
+      </code></pre>
+      <p>Much better than XPATH, and for this particular case when the xml_source is small there will no relevant performace issue.</p>
+      <p>Now only need to get the values and populate the database, in my case I will use Redis DataModel as storage.</p>
+      <p>also I will use <strong>magicdate</strong> module to automagically convert the date format to datetime object.</p>
+      <pre><code>import sys
+import time
+import xmltodict
+import magicdate
+from watchdog.observers import Observer
+from watchdog.events import PatternMatchingEventHandler
+
+from .models import Media
+
+
+class MyHandler(PatternMatchingEventHandler):
+    patterns=["*.xml"]
+
+    def process(self, event):
+        """
+        event.event_type
+            'modified' | 'created' | 'moved' | 'deleted'
+        event.is_directory
+            True | False
+        event.src_path
+            path/to/observed/file
+        """
+
+        with open(event.src_path, 'r') as xml_source:
+            xml_string = xml_source.read()
+            parsed = xmltodict.parse(xml_string)
+            element = parsed.get('Pulsar', {}).get('OnAir', {}).get('media')
+            if not element:
+                return
+
+            media = Media(
+                title=element.get('title1'),
+                description=element.get('title3'),
+                media_id=element.get('media_id1'),
+                hour=magicdate(element.get('hour')),
+                length=element.get('title4')
+            )
+            media.save()
+
+    def on_modified(self, event):
+        self.process(event)
+
+    def on_created(self, event):
+        self.process(event)
+
+
+if __name__ == '__main__':
+    args = sys.argv[1:]
+    observer = Observer()
+    observer.schedule(MyHandler(), path=args[0] if args else '.')
+    observer.start()
+
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        observer.stop()
+
+    observer.join()
+      </code></pre>
+      <p>That is my usecase, but the example can be used for any kind of requirement.</p>
+      <p>Another useful module is <a href="http://github.com/mdipierro/workflow">Workflow</a> by Massimo Di Pierro that creates workflows based on rules defined in a config file.</p>
+
+
+
+
+
+
+
+
+
+
+
+      <div class="sharing">
+        <p class="post-meta">
+        // Share
+        </p>
+        <!-- Facebook sharing -->
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=&version=v2.0";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+        <div class="fb-share-button" data-href="http://brunorocha.org/python/watching-a-directory-for-file-changes-with-python.html" data-type="button_count"></div>
+
+        <!-- Google+ sharing -->
+        <div class="g-plus alinhar" data-action="share" data-annotation="bubble" data-href="http://brunorocha.org/python/watching-a-directory-for-file-changes-with-python.html"></div>
+
+        <!-- Twitter sharing -->
+        <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" style="margin-bottom: -4px !important;">Tweetar</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </div>
+
+
+
+
+
+
+
+
+
+
+      <div>
+        <p class="post-meta">
+        // You may also like
+        </p>
+
+
+
+        <li class="post-header">
+        <a class="post-title-small" href="/python/microservices-with-python-rabbitmq-and-nameko.html">Microservices with Python, RabbitMQ and Nameko</a>
+        <small>
+          in <a href="/python/">python</a> &middot; 17:05 of 03/04/2016
+        </small>
+
+        </li>
+
+
+
+
+        <li class="post-header">
+        <a class="post-title-small" href="/python/esengine-elasticsearch-object-doctype-mapper-for-python.html">ESEngine - Elasticsearch Object Doctype Mapper for Python</a>
+        <small>
+          in <a href="/python/">python</a> &middot; 12:56 of 02/25/2016
+        </small>
+
+        </li>
+
+
+
+
+        <li class="post-header">
+        <a class="post-title-small" href="/python/flask/flasgger-api-playground-with-flask-and-swagger-ui.html">Flasgger - API playground with Flask and Swagger UI </a>
+        <small>
+          in <a href="/python/flask/">flask</a> &middot; 10:36 of 02/23/2016
+        </small>
+
+        </li>
+
+
+      </div>
+
+
+
+
+
+
+
+
+
+      <hr />
+      <p class="post-meta">
+      // Comment
+      </p>
+
+
+
+
+
+
+
+
+      <a href="#" class="go-top">Go Top</a>
+      <footer class="footer">
+        <p>
+        <span>Powered by <a href="http://www.quokkaproject.org">Quokka CMS</a></span>
+        &copy; BrunoRocha.org | Python web development &ndash;
+        Based in <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a> &ndash; 
+        Access the <a href="/admin">Admin</a> interface
+        </p>
+      </footer>
+
+    </div>
+  </div>
+
+</div>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+<script>
+$(document).ready(function(){
+    $(".content").fitVids();
+    });
+$(window).load(function(){
+    $("iframe").css("margin-bottom", "-6px")
+    $("#twitter-widget-0").css("margin-bottom", "-5px");
+    $("#twitter-widget-0").css("margin-left", "-1px");
+    });
+</script>
+<script type="text/javascript" src="https://apis.google.com/js/platform.js">
+{lang: 'pt-BR'}
+</script>
+
+
+
+
+<script>
+var $top = $('.go-top');
+
+// Show or hide the sticky footer button
+$(window).scroll(function() {
+    if ($(this).scrollTop() > 200) {
+    $top.fadeIn(200);
+    } else {
+    $top.fadeOut(200);
+    }
+    });
+
+// Animate the scroll to top
+$top.click(function(event) {
+    event.preventDefault();
+    $('html, body').animate({scrollTop: 0}, 300);
+    })
+
+// Makes sure that the href="#" attached to the <a> elements
+// don't scroll you back up the page.
+$('body').on('click', 'a[href="#"]', function(event) {
+    event.preventDefault();
+    });
+</script>
+</body>
+</html>
