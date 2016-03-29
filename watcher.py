@@ -9,17 +9,23 @@ from watchdog.events import PatternMatchingEventHandler
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 PATTERNS = [
+        '*.css',
         '*.py',
         '*.html',
         ]
 IGNORE_PATTERNS = [
-        '*src/*',
         '*watcher.py',
         ]
 BUILDCOMMANDS = [
         ['docker-compose', 'build'], 
         ['docker-compose', 'up'],
         ]
+
+def parse_gitignore():
+    with open('.gitignore', 'r') as gitignore:
+        print '[*] Parsing gitignore'
+        for line in gitignore.readlines():
+            IGNORE_PATTERNS.append(line.strip())
 
 def get_now():
     return datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
@@ -41,6 +47,7 @@ class ChangeHandler(PatternMatchingEventHandler):
 
 def main():
     os.chdir(BASEDIR)
+    parse_gitignore()
     print "[*] Starting watchdog in {} @{}".format(BASEDIR, get_now())
     build_docker()
     observer = Observer()
