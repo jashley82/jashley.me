@@ -147,6 +147,12 @@ DATABASES = {
     "default": dj_database_url.config()
 }
 
+if not os.getenv('DATABASE_URL'):
+    DATABASES['default'] = {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "dev.db",
+    }
+
 
 #########
 # PATHS #
