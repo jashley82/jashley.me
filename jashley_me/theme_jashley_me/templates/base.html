@@ -19,6 +19,8 @@
 <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
 <link rel="stylesheet" href="{% static "css/mezzanine.css" %}">
 <link rel="stylesheet" href="{% static "css/bootstrap-theme.css" %}">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+
 {% if LANGUAGE_BIDI %}
 <link rel="stylesheet" href="{% static "css/bootstrap-rtl.css" %}">
 {% endif %}
@@ -48,27 +50,6 @@
 
 <body id="{% block body_id %}body{% endblock %}">
 
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-<div class="container">
-<div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">{% trans "Toggle Navigation" %}</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-    </button>
-    {% block navbar_title %}
-    {% if settings.SITE_TITLE %}<a class="navbar-brand" href="/">{{ settings.SITE_TITLE }}</a>{% endif %}
-    {% if settings.SITE_TAGLINE %}<p class="navbar-text visible-lg">{{ settings.SITE_TAGLINE }}</p>{% endif %}
-    {% endblock%}
-</div>
-<div class="navbar-collapse collapse">
-    {% block navbar_search_form %}{% search_form "all" %}{% endblock %}
-    {% block navbar_dropdown_menu %}{% page_menu "dropdown.html" %}{% endblock%}
-</div>
-</div>
-</div>
-
 <div class="container">
 
 {% nevercache %}
@@ -84,26 +65,18 @@
 {% endif %}
 {% endnevercache %}
 
-<h1>{% block title %}{% endblock %}</h1>
-
-<ul class="breadcrumb">
-{% spaceless %}
-{% block breadcrumb_menu %}{% page_menu "breadcrumb.html" %}{% endblock %}
-{% endspaceless %}
-</ul>
-
 </div>
 
 <div class="container">
 <div class="row">
 
-<div class="col-md-5 left">
+<div class="col-md-4 left">
     {% block left_panel %}
     <div class="panel panel-default tree">{% page_menu "left_panel.html" %}</div>
     {% endblock %}
 </div>
 
-<div class="col-md-7 middle">
+<div class="col-md-8 right">
     {% block main %}{% endblock %}
 </div>
 
@@ -116,17 +89,7 @@
 
 <div class="row">
 <p class="site-info text-center">
-    {% trans "Powered by" %}
-    <a href="http://mezzanine.jupo.org">Mezzanine</a>{% ifinstalled cartridge.shop %},
-    <a href="http://cartridge.jupo.org">Cartridge</a>{% endifinstalled %}
-    {% trans "and" %}
-    <a href="http://www.djangoproject.com">Django</a>
-    <span class="separator">|</span>
-    {% trans "Theme by" %} <a target="_blank" href="http://getbootstrap.com">Bootstrap</a>
-    {% ifinstalled mezzanine.mobile %}
-    <span class="separator">|</span>
-    <a href="{% url "set_device" "mobile" %}?next={{ request.path }}">{% trans "View Mobile Site" %}</a>
-    {% endifinstalled %}
+
 </p>
 </div>
 </div>
