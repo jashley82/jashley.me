@@ -35,15 +35,22 @@ def build_docker():
     NULL = open(os.devnull, 'w')
     for cmd in BUILDCOMMANDS:
         subprocess.Popen(cmd, stdout=NULL)
-    return
+    return 
 
 class ChangeHandler(PatternMatchingEventHandler):
     patterns = PATTERNS
     ignore_patterns = IGNORE_PATTERNS
+
+    def __init__(self):
+        super(ChangeHandler, self).__init__()
+        self.last_ran = time.time()
     
     def on_any_event(self, event):
         print "[*] {} {}".format(event.src_path, event.event_type)
-        build_docker()
+        if time.time() - self.last_ran > 1:
+            build_docker()
+            self.last_ran = time.time()
+            print self.last_ran
 
 def main():
     os.chdir(BASEDIR)
