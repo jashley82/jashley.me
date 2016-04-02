@@ -13,9 +13,9 @@
     </ul>
   {% endif %}
   
-  {% if answer %}
-    <p>Category: {{ answer.category.title }}</p>
-    <p>Answer: {{ answer.answer_text }}</p>
+  {% if question %}
+    <p>Category: {{ question.category.title }}</p>
+    <p>Answer: {{ question.question_text }}</p>
     <form action="/quiz/check/" method="post">
       {% csrf_token %}
       {{ form }}
