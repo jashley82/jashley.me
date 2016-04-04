@@ -17,8 +17,9 @@ IGNORE_PATTERNS = [
         '*watcher.py',
         ]
 BUILDCOMMANDS = [
-        ['docker-compose', 'build'], 
-        ['docker-compose', 'up'],
+        ['docker-compose', 'stop', 'web'], 
+        ['docker-compose', 'build', 'web'], 
+        ['docker-compose', 'up', 'web'],
         ]
 
 def parse_gitignore():
@@ -35,6 +36,7 @@ def build_docker():
     NULL = open(os.devnull, 'w')
     for cmd in BUILDCOMMANDS:
         subprocess.Popen(cmd, stdout=NULL)
+        time.sleep(1) # give time for docker commands to complete
     return 
 
 class ChangeHandler(PatternMatchingEventHandler):
