@@ -1,5 +1,5 @@
 web:
-  build: jashley_me
+  build: web
   command: gunicorn jashley_me.wsgi:application -w 2 -b :8001
   working_dir: /app/user/
   environment:
