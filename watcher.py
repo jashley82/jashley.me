@@ -1,3 +1,4 @@
+import yaml
 import os
 import sys
 import subprocess
@@ -28,6 +29,11 @@ def parse_gitignore():
         for line in gitignore.readlines():
             IGNORE_PATTERNS.append(line.strip())
 
+def parse_dockeryml():
+    with open('docker-compose.yml', 'r') as dockeryml:
+        yml = yaml.load(dockeryml.read())
+        print "[*] Launching web server http://localhost:{}".format(yml['web']['environment']['PORT'])
+
 def get_now():
     return datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
 
@@ -57,6 +63,7 @@ class ChangeHandler(PatternMatchingEventHandler):
 def main():
     os.chdir(BASEDIR)
     parse_gitignore()
+    parse_dockeryml()
     print "[*] Starting watchdog in {} @{}".format(BASEDIR, get_now())
     build_docker()
     observer = Observer()
