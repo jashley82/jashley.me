@@ -16,7 +16,7 @@
   {% if question %}
     <p>Category: {{ question.category.title }}</p>
     <p>Answer: {{ question.question_text }}</p>
-    <form action="/quiz/check/" method="post">
+    <form id="quiz_form" action="/quiz/check/" method="post">
       {% csrf_token %}
       {{ form }}
       <input type="submit" value="Submit" />
@@ -24,4 +24,12 @@
   {% else %}
     <p>No content available.</p>
   {% endif %}
+
+<script type="text/javascript">
+var start = $.now();
+$('#quiz_form').submit(function(event) {
+  $('#id_time_completed').val($.now()-start);
+  })
+</script>
+
 {% endblock %}

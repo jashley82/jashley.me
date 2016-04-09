@@ -9,11 +9,14 @@ class AnswerAdmin(admin.ModelAdmin):
 
 class AnswerInline(admin.TabularInline):
     model = Answer
+    extra = 1
     can_delete = False
 
 
 class ScoreCardInline(admin.TabularInline):
     model = ScoreCard
+    extra = 0
+    ordering = ('-created_at',)
     can_delete = False
     readonly_fields = ('answered_text', 'time_completed', 'pass_fail', 'user_id', 'created_at')
 
