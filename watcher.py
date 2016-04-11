@@ -13,6 +13,7 @@ PATTERNS = [
         '*.css',
         '*.py',
         '*.html',
+        '*.txt',
         ]
 IGNORE_PATTERNS = [
         '*watcher.py',
