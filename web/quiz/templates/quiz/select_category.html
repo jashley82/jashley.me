@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block main %}
+  
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %} 
+      <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  
+  {% if categories %}
+  {% for category in categories %}
+    <a href="{% url 'do_quiz' category.id %}">{{ category }}</a>
+  {% endfor %}
+  {% else %}
+    <p>No content available.</p>
+  {% endif %}
+
+<script type="text/javascript">
+var start = $.now();
+$('#quiz_form').submit(function(event) {
+  $('#id_time_completed').val($.now()-start);
+  })
+</script>
+
+{% endblock %}

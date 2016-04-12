@@ -2,11 +2,16 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 
 from quiz.forms import QuizForm
-from quiz.models import Answer, ScoreCard, Question
+from quiz.models import Answer, Category, ScoreCard, Question
 
 
-def do_quiz(request):
+def select_category(request):
+    categories = Category.objects.all()
+    return render(request, 'quiz/select_category.html', {'categories':  categories})
+
+def do_quiz(request, category_id):
     question = Question.objects.order_by('?').first()
+    # category = Category.objects.get(pk=category_id)
     if question: 
         form = QuizForm({'question_id': question.id})
     else:

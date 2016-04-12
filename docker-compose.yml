@@ -11,3 +11,5 @@ web:
     - herokuPostgresql
 herokuPostgresql:
   image: postgres
+herokuRedis:
+  image: redis
