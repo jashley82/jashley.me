@@ -16,10 +16,12 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from quiz.views import check_answer, do_quiz, select_category
+from quiz import views
 
 urlpatterns = [
-    url(r'^$', select_category, name='select_category'),
-    url(r'^(?P<category_id>[0-9]+)/do/$', do_quiz, name='do_quiz'),
-    url(r'^check/', check_answer, name='check_answer'),
+    url(r'^$', views.select_category, name='select_category'),
+    url(r'^(?P<category_id>[0-9]+)/set/$', views.set_category, name='set_category'),
+    url(r'^do/(?P<game_id>\w+)$', views.do_quiz, name='do_quiz'),
+    url(r'^check/(?P<game_id>\w+)$', views.check_answer, name='check_answer'),
+    url(r'^results/(?P<game_id>\w+)$', views.results, name='results'),
 ]

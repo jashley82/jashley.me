@@ -12,17 +12,9 @@
   
   {% if categories %}
   {% for category in categories %}
-    <a href="{% url 'do_quiz' category.id %}">{{ category }}</a>
+    <a href="{% url 'set_category' category.id %}">{{ category }}</a>
   {% endfor %}
   {% else %}
     <p>No content available.</p>
   {% endif %}
-
-<script type="text/javascript">
-var start = $.now();
-$('#quiz_form').submit(function(event) {
-  $('#id_time_completed').val($.now()-start);
-  })
-</script>
-
 {% endblock %}

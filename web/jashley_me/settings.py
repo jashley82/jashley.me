@@ -226,8 +226,14 @@ if DJANGO_VERSION < (1, 9):
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage' 
 
+RQ_QUEUES = {
+    'quiz': {
+        'URL': os.getenv('REDIS_URL'),
+        'DEFAULT_TIMEOUT': 500,
+    },        
+}
 
 
 ################
@@ -257,6 +263,7 @@ INSTALLED_APPS = (
     # "mezzanine.accounts",
     # "mezzanine.mobile",
 
+    "django_rq",
     "quiz",
 )
 

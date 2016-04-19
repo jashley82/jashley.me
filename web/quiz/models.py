@@ -1,3 +1,5 @@
+from uuidfield import UUIDField
+
 from django.db import models
 
 
@@ -27,11 +29,22 @@ class Answer(models.Model):
 
 class ScoreCard(models.Model):
     question = models.ForeignKey('Question')
+    result = models.ForeignKey('Result')
+    user_id = models.IntegerField()
     answered_text = models.CharField(max_length=255)
     time_completed = models.CharField(max_length=255)
     pass_fail = models.BooleanField()
-    user_id = models.IntegerField()
     created_at = models.DateTimeField(auto_now=True)
     
     def count(self, obj):
         return ScoreCard.objects.filter(question=obj).count()
+
+
+class Result(models.Model):
+    category = models.ForeignKey('Category')
+    created_at = models.DateTimeField(auto_now=True)
+    user = models.CharField(max_length=255)
+    game_id = UUIDField(auto=True)
+
+    def __unicode__(self):
+        return self.category.game_id
