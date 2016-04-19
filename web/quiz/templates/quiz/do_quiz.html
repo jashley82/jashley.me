@@ -26,10 +26,13 @@
   {% endif %}
 
 <script type="text/javascript">
+$(function() {
+  $('#id_answer_text').focus();
+});
 var start = $.now();
 $('#quiz_form').submit(function(event) {
   $('#id_time_completed').val($.now()-start);
-  })
+})
 </script>
 
 {% endblock %}
