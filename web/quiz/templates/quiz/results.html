@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<p>{{ result.user }}</p>
+<p>{{ result.game_id }}</p>
+<p>{{ result.category }}</p>
+<p>{{ result.created_at }}</p>
+<p>{{ result.avg_time }}</p>
+<hr />
+
+{% for score_card in score_cards %}
+
+<p>{{ score_card.question }}</p>
+<p>{{ score_card.answered_text }}</p>
+<p>{{ score_card.pass_fail }}</p>
+<p>{{ score_card.time_completed }}</p>
+<br />
+
+{% endfor %}
+{% endblock %}

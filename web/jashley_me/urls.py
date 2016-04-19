@@ -74,6 +74,7 @@ urlpatterns += [
     # ``mezzanine.urls`` INCLUDES A *CATCH ALL* PATTERN
     # FOR PAGES, SO URLPATTERNS ADDED BELOW ``mezzanine.urls``
     # WILL NEVER BE MATCHED!
+    url(r"^django-rq/", include("django_rq.urls")),
 
     url(r"^quiz/", include("quiz.urls"), name="quiz"),
 
