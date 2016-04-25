@@ -11,6 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 ######################
 
 RICHTEXT_FILTER_LEVEL = 3
+DICTIONARY_API_ENDPOINT = 'http://dictionaryapi.net/api/definition/{word}'
 
 # The following settings are already defined with default values in
 # the ``defaults.py`` module within each of Mezzanine's apps, but are
