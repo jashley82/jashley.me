@@ -53,24 +53,18 @@ def check_answer(request, game_id):
                     user_id=request.user.id,
                     result=result
                     )
-            msg = "{} {} {} {} {} {}"
+            msg = "{} {} {}"
             if pass_fail:
                 messages.add_message(request, messages.SUCCESS, msg.format(
                     'Correct',
-                    score_card.question.question_text,
                     score_card.question.answer_set.first().answer_text,
                     score_card.answered_text,
-                    score_card.pass_fail,
-                    score_card.count(question)
                     ))
             else:
                  messages.add_message(request, messages.ERROR, msg.format(
                     'Incorrect',
-                    score_card.question.question_text,
                     score_card.question.answer_set.first().answer_text,
                     score_card.answered_text,
-                    score_card.pass_fail,
-                    score_card.count(question)
                     ))
     return redirect('do_quiz', game_id=game_id)
 

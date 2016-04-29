@@ -47,4 +47,4 @@ class Result(models.Model):
     game_id = UUIDField(auto=True)
 
     def __unicode__(self):
-        return self.category.game_id
+        return str(self.game_id)
