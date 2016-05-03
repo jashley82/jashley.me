@@ -7,6 +7,8 @@ web:
     DATABASE_URL: 'postgres://postgres:@herokuPostgresql:5432/postgres'
     REDIS_URL: 'redis://herokuRedis:6379/'
     DEBUG: 'True'
+    SECRET_KEY: 'f6zxmto54(%4b56xv&xrpwku_=52yus19rz1nrsfy_(3=q*sal'
+    NEVERCACHE_KEY: 'f6zxmto54(%4b56xv&xrpwku_=52yus19rz1nrsfy_(3=q*sal'
   ports:
     - '8001:8001'
   links:
