@@ -1,8 +1,10 @@
 # jashley.me
-source code for my website, built on django-mezzanine and hosted by heroku
+source code for my website, built on django
 
 - Heroku development parity achieved through the use of docker-compose
 - Watchdog script for CI badassery
+
+https://devcenter.heroku.com/articles/docker
 
 Install the Docker plugin for Heroku
 ``` heroku plugins:install heroku-docker ```
