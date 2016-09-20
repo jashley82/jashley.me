@@ -1,6 +1,6 @@
 web:
   build: web
-  command: gunicorn jashley_me.wsgi:application -w 2 -b :8001
+  command: gunicorn jashley_me.wsgi:application -w 2 -b 127.0.0.1:8001
   working_dir: /app/user/
   environment:
     PORT: 8001
