@@ -9,3 +9,4 @@ local_settings.py
 *src*
 *.log
 __pycache__
+aptspider/
