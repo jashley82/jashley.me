@@ -10,3 +10,4 @@ local_settings.py
 *.log
 __pycache__
 aptspider/
+.ropeproject/
